@@ -7,7 +7,8 @@
     @for (image of images(); track image.id; let index = $index) {
       <app-image-item
         [image]="image"
-        [isFeatured]="index === 0">
+        [isFeatured]="index === 0"
+        (deleteImage)="removeImage(image.id)">
       </app-image-item>
     }
   </div>

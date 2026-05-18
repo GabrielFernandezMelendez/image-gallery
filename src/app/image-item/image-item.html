@@ -1,9 +1,18 @@
 <div
   class="rounded-lg overflow-hidden shadow-md w-full h-full"
   [class.featured]="isFeatured()">
+
   <img
     [src]="image().src"
     [alt]="image().alt"
     class="w-full h-full object-cover"
   />
+
+  <button
+    (click)="onDeleteClick($event)"
+    class="absolute top-2 right-2 bg-red-500 hover:bg-red-700 text-white rounded-full w-8 h-8 flex items-center justify-center shadow-lg transition-colors duration-200"
+    title="Eliminar imagen">
+    ✕
+  </button>
+
 </div>

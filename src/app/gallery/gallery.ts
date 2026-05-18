@@ -17,4 +17,11 @@ export class GalleryComponent {
     { id: '4', src: 'https://picsum.photos/id/240/400/400', alt: 'Una ciudad' },
     { id: '5', src: 'https://picsum.photos/id/241/400/400', alt: 'Un bosque' },
   ]);
+
+    removeImage(id: string) {
+    const confirmar = window.confirm('¿Estás seguro de que quieres eliminar esta imagen?');
+    if (confirmar) {
+      this.images.update(imagenes => imagenes.filter(img => img.id !== id));
+    }
+  }
 }
