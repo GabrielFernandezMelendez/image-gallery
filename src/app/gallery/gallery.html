@@ -3,12 +3,24 @@
     Galería de Imágenes
   </h1>
 
+  @if (selectedImageIds().size > 0) {
+    <div class="flex justify-center mb-4">
+      <button
+        (click)="removeSelected()"
+        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-lg shadow transition-colors duration-200">
+        🗑 Eliminar seleccionadas ({{ selectedImageIds().size }})
+      </button>
+    </div>
+  }
+
   <div class="grid grid-cols-3 gap-4 auto-rows-[250px]">
     @for (image of images(); track image.id; let index = $index) {
       <app-image-item
         [image]="image"
         [isFeatured]="index === 0"
-        (deleteImage)="removeImage(image.id)">
+        [isSelected]="selectedImageIds().has(image.id)"
+        (deleteImage)="removeImage(image.id)"
+        (selectImage)="toggleSelection(image.id)">
       </app-image-item>
     }
   </div>

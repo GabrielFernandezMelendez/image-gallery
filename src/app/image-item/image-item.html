@@ -1,12 +1,22 @@
 <div
-  class="rounded-lg overflow-hidden shadow-md w-full h-full"
-  [class.featured]="isFeatured()">
+  class="rounded-lg overflow-hidden shadow-md w-full h-full cursor-pointer transition-all duration-200"
+  [class.featured]="isFeatured()"
+  [class.ring-4]="isSelected()"
+  [class.ring-indigo-400]="isSelected()"
+  [class.opacity-75]="isSelected()"
+  (click)="onImageClick()">
 
   <img
     [src]="image().src"
     [alt]="image().alt"
     class="w-full h-full object-cover"
   />
+
+  @if (isSelected()) {
+    <div class="absolute top-2 left-2 bg-indigo-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+      ✓
+    </div>
+  }
 
   <button
     (click)="onDeleteClick($event)"

@@ -18,10 +18,41 @@ export class GalleryComponent {
     { id: '5', src: 'https://picsum.photos/id/241/400/400', alt: 'Un bosque' },
   ]);
 
-    removeImage(id: string) {
+  selectedImageIds = signal<Set<string>>(new Set());
+
+  removeImage(id: string) {
     const confirmar = window.confirm('¿Estás seguro de que quieres eliminar esta imagen?');
     if (confirmar) {
       this.images.update(imagenes => imagenes.filter(img => img.id !== id));
+      this.selectedImageIds.update(ids => {
+        const newSet = new Set(ids);
+        newSet.delete(id);
+        return newSet;
+      });
+    }
+  }
+
+  toggleSelection(id: string) {
+    this.selectedImageIds.update(currentIds => {
+      const newSet = new Set(currentIds);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  }
+
+  removeSelected() {
+    const confirmar = window.confirm(
+      `¿Eliminar las ${this.selectedImageIds().size} imágenes seleccionadas?`
+    );
+    if (confirmar) {
+      this.images.update(imagenes =>
+        imagenes.filter(img => !this.selectedImageIds().has(img.id))
+      );
+      this.selectedImageIds.set(new Set());
     }
   }
 }
